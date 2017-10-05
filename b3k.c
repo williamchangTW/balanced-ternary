@@ -31,7 +31,8 @@ struct ds {
 };
 
 /* A number to convert and signed one to keep if it was negative. */
-static int src = 0, inv = 1;
+static int inv = 1;
+static long int src = 0;
 
 /* A buffer for the result. */
 static char res[SZP+1];
@@ -39,7 +40,12 @@ static char res[SZP+1];
 /* Use it like 'echo -42 | ./b3k' */
 int main (int q, char * argv[])
 {
-    scanf("%d", &src);
+    scanf("%ld", &src);
+
+    if (src <= -3280)
+        src = -3280;
+    else if (src >= 3280)
+        src = 3280;
 
     /* Split the value into its modulus and signed multiplier. */
     if (src < 0)
